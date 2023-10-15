@@ -82,8 +82,8 @@ public class Problems28 {
         int count = 0;
         int temp = dig;
         while (temp != 6174) {
-           temp = k(temp);
-           count++;
+            temp = k(temp);
+            count++;
         }
         return count;
     }
@@ -94,8 +94,8 @@ public class Problems28 {
         char[] newBin = new char[binary.length()];
         for (int i = 0; i < binary.length(); i++) {
             int index = (i + shift) % binary.length();
-            if (index < 0){
-                index+=binary.length();
+            if (index < 0) {
+                index += binary.length();
             }
             newBin[i] = oldBin[index];
         }
@@ -109,8 +109,8 @@ public class Problems28 {
         char[] newBin = new char[binary.length()];
         for (int i = 0; i < binary.length(); i++) {
             int index = (i - shift) % binary.length();
-            if (index < 0){
-                index+=binary.length();
+            if (index < 0) {
+                index += binary.length();
             }
             newBin[i] = oldBin[index];
         }
