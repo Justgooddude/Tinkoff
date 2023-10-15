@@ -1,6 +1,5 @@
 package edu.hw1;
 
-import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +9,7 @@ public class Video {
     public Video() {
     }
 
-    public int Length(String time) {
+    @SuppressWarnings("MagicNumber") public int length(String time) {
         if (!time.contains(":")) {
             return -1;
         }
@@ -24,7 +23,7 @@ public class Video {
         return min * 60 + sec;
     }
 
-    public void SayHello() {
+    public void sayHello() {
         LOGGER.info("Hello, world!");
     }
 }
