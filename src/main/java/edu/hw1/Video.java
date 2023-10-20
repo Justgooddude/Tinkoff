@@ -10,11 +10,15 @@ public class Video {
     }
 
     @SuppressWarnings("MagicNumber") public int length(String time) {
+        // ошибка при некоректном вводе-отсутствует разделение минут  секунд
         if (!time.contains(":")) {
             return -1;
         }
+        //выделяем строку минут
         String minutes = time.substring(0, time.indexOf(":"));
+        //выделяем подстроку секунд
         String seconds = time.substring(time.indexOf(":") + 1);
+        //переводим из строк в целые
         int sec = Integer.parseInt(seconds);
         int min = Integer.parseInt(minutes);
         if (sec >= 60) {
@@ -22,6 +26,7 @@ public class Video {
         }
         return min * 60 + sec;
     }
+    //задание 0
 
     public void sayHello() {
         LOGGER.info("Hello, world!");
