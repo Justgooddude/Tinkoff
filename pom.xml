@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>education</groupId>
-    <artifactId>essentials</artifactId>
+    <artifactId>Homework</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
 
@@ -59,7 +59,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>${junit.version}</version>
+                <version>5.10.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -218,4 +218,5 @@
             </plugins>
         </pluginManagement>
     </build>
+
 </project>
