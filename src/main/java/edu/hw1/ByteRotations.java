@@ -5,7 +5,7 @@ public class ByteRotations {
     public ByteRotations() {
     }
 
-    @SuppressWarnings("MagicNumber")
+
     int rotateLeft(int n, int shift) {
         String binary = Integer.toBinaryString(n);
         // старое и новое бинарное зн

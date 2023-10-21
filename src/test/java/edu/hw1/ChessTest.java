@@ -19,7 +19,7 @@ class ChessTest {
             {0, 0, 0, 0, 1, 0, 0, 0}
         };
         boolean result = problem.knightBoardCapture(example);
-        Assertions.assertThat(result).isEqualTo(true);
+        Assertions.assertThat(result).isTrue();
     }
     @Test
     void knightBoardCapture2() {
@@ -35,6 +35,6 @@ class ChessTest {
             {0, 0, 0, 0, 1, 0, 0, 1}
         };
         boolean result = problem.knightBoardCapture(example);
-        Assertions.assertThat(result).isEqualTo(false);
+        Assertions.assertThat(result).isFalse();
     }
 }

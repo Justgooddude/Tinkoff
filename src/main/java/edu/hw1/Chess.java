@@ -19,7 +19,7 @@ public class Chess {
                         int xCoord = i + move[0];
                         int yCoord = j + move[1];
                         //проверки что остались в пределах доски, и наличие коня
-                        if ((xCoord >= 0) && (xCoord < 8) && (yCoord >= 0) && (yCoord < 8)) {
+                        if (onBoard(xCoord, yCoord)) {
                             if (board[xCoord][yCoord] == 1) {
                                 return false;
                             }
@@ -30,4 +30,10 @@ public class Chess {
         }
         return true;
     }
+
+    public boolean onBoard(int x, int y) {
+        final int BOARDSIZE = 8;
+        return (x >= 0) && (x < BOARDSIZE) && (y >= 0) && (y < BOARDSIZE);
+    }
+
 }

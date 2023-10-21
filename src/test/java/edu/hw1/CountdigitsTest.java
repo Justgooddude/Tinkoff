@@ -1,6 +1,6 @@
 package edu.hw1;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +12,7 @@ class CountdigitsTest {
         Countdigits problem = new Countdigits();
         int data = 4666;
         int result = problem.countdigits(data);
-        Assertions.assertThat(result).isEqualTo(4);
+        Assertions.assertEquals(result,4);
     }
 
     @Test
@@ -20,7 +20,8 @@ class CountdigitsTest {
         Countdigits problem = new Countdigits();
         int data = 0;
         int result = problem.countdigits(data);
-        Assertions.assertThat(result).isEqualTo(1);
+        Assertions.assertEquals(result,1);
+
     }
 
 

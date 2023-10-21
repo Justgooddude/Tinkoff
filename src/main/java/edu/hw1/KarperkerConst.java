@@ -23,21 +23,12 @@ public class KarperkerConst {
         Arrays.sort(numChar);
         //отсортированное по возрастанию число
         String strnum = new String(numChar);
+
+        StringBuilder strn = new StringBuilder(strnum);
         //отсортированное по убыванию
-        String reversednumnum = revers(strnum);
+        String reversednumnum = new String(strn.reverse());
         //превращаем их из строк в числа и считаем
         return -Integer.valueOf(strnum) + Integer.valueOf(reversednumnum);
     }
 
-    @SuppressWarnings("MagicNumber")
-    private String revers(String str) {
-        char[] charArray = str.toCharArray();
-        for (int i = 0; i < charArray.length / 2; i++) {
-            char temp = charArray[i];
-            charArray[i] = charArray[charArray.length - i - 1];
-            charArray[charArray.length - i - 1] = temp;
-        }
-        String reversedStr = new String(charArray);
-        return reversedStr;
-    }
 }

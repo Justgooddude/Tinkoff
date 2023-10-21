@@ -9,7 +9,10 @@ public class Video {
     public Video() {
     }
 
-    @SuppressWarnings("MagicNumber") public int length(String time) {
+    @SuppressWarnings("MagicNumber")
+    public int length(String time) {
+
+        final int secInMin = 60;
         // ошибка при некоректном вводе-отсутствует разделение минут  секунд
         if (!time.contains(":")) {
             return -1;
@@ -21,10 +24,10 @@ public class Video {
         //переводим из строк в целые
         int sec = Integer.parseInt(seconds);
         int min = Integer.parseInt(minutes);
-        if (sec >= 60) {
+        if (sec >= secInMin) {
             return -1;
         }
-        return min * 60 + sec;
+        return min * secInMin + sec;
     }
     //задание 0
 

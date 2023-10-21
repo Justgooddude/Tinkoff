@@ -1,6 +1,6 @@
 package edu.hw1;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,8 +12,7 @@ class VideoTest {
         Video video = new Video();
         String time = "13:56";
         int seconds = video.length(time);
-        Assertions.assertThat(seconds).isEqualTo(836);
-
+        Assertions.assertEquals(seconds,836);
     }
 
     @Test
@@ -21,7 +20,7 @@ class VideoTest {
         Video video = new Video();
         String time = "13:60";
         int seconds = video.length(time);
-        Assertions.assertThat(seconds).isEqualTo(-1);
+        Assertions.assertEquals(seconds,-1);
 
     }
 }
