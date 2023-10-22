@@ -6,22 +6,24 @@ public class Rectangle {
 
     Rectangle setWidth(int width) {
         Rectangle result = new Rectangle();
-        result.width=width;
-        result.height=this.height;
+        result.width = width;
+        result.height = this.height;
         return result;
     }
 
     Rectangle setHeight(int height) {
         Rectangle result = new Rectangle();
-        result.width=this.width;
-        result.height=height;
+        result.width = this.width;
+        result.height = height;
         return result;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return this.width;
+
     }
-    public int getheight(){
+
+    public int getheight() {
         return this.height;
     }
 
