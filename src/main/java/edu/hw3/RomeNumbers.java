@@ -11,10 +11,9 @@ public class RomeNumbers {
 
     public String convertToRoman(int arabic) {
         String result = "";
-        int tempt = arabic;
         for (int i = 0; i < values.length; i++) {
-            while (tempt >= values[i]) {
-                int tempt = tempt - values[i];
+            while (arabic >= values[i]) {
+                arabic = arabic - values[i];
                 result += romanvalues[i];
             }
         }
