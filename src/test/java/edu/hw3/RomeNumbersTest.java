@@ -10,9 +10,9 @@ class RomeNumbersTest {
     @Test
     void convertToRomantest() {
         RomeNumbers romeNumbers = new RomeNumbers();
-        int example=16;
+        int example = 16;
         String result = romeNumbers.convertToRoman(example);
-        String test ="XVI";
-        Assertions.assertEquals(result,test);
+        String test = "XVI";
+        Assertions.assertEquals(result, test);
     }
 }

@@ -12,15 +12,15 @@ class ContactsTest {
 
     @Test
     void parseContactstest() {
-        Contacts contacts= new Contacts();
-        String[] contactex =  {"Paul Erdos", "Leonhard Euler", "Carl Gauss"};
+        Contacts contacts = new Contacts();
+        String[] contactex = {"Paul Erdos", "Leonhard Euler", "Carl Gauss"};
         List<String> example = Arrays.asList(contactex);
-        String sortType= "ASC";
-        List<String>result =contacts.parseContacts(example,sortType);
-        List<String> test =new ArrayList<>();
+        String sortType = "ASC";
+        List<String> result = contacts.parseContacts(example, sortType);
+        List<String> test = new ArrayList<>();
         test.add("Paul Erdos");
         test.add("Leonhard Euler");
         test.add("Carl Gauss");
-        Assertions.assertEquals(result,test);
+        Assertions.assertEquals(result, test);
     }
 }

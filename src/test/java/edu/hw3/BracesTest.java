@@ -12,11 +12,12 @@ class BracesTest {
     void clusterizetest() {
         Braces braces = new Braces();
         String example = "((()))(())()()(()())";
-        ArrayList<String> result= braces.clusterize(example);
+        ArrayList<String> result = braces.clusterize(example);
         String[] test = {"((()))", "(())", "()", "()", "(()())"};
-        String[] resultm =new String[result.size()];
-        for (int i = 0; i < result.size(); i++)
+        String[] resultm = new String[result.size()];
+        for (int i = 0; i < result.size(); i++) {
             resultm[i] = result.get(i);
-        Assertions.assertArrayEquals(resultm,test);
+        }
+        Assertions.assertArrayEquals(resultm, test);
     }
 }

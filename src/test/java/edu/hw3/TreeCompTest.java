@@ -10,22 +10,24 @@ class TreeCompTest {
     Comparator<String> treecomp = new Comparator<String>() {
         @Override
         public int compare(String o1, String o2) {
-            if(o1==null && o2==null){
+            if (o1 == null && o2 == null) {
                 return 0;
             }
-            if(o1==null){
+            if (o1 == null) {
                 return -1;
             }
-            if (o2==null){
+            if (o2 == null) {
                 return 1;
             }
-            return compare(o1,o2);
+            return compare(o1, o2);
         }
-    };@Test
+    };
+
+    @Test
     void compare() {
-        TreeMap<String, String> tree= new TreeMap<>(treecomp);
+        TreeMap<String, String> tree = new TreeMap<>(treecomp);
         tree.put(null, "test");
-        boolean result= tree.containsKey(null);
-        Assertions.assertEquals(result,true);
+        boolean result = tree.containsKey(null);
+        Assertions.assertEquals(result, true);
     }
 }

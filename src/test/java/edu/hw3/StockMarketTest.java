@@ -9,13 +9,13 @@ class StockMarketTest {
 
     @Test
     void mostValuableStock() {
-        StockMarket stockMarket=new StockMarket();
+        StockMarket stockMarket = new StockMarket();
         stockMarket.add(new Stock(12));
         stockMarket.add(new Stock(16));
         stockMarket.add(new Stock(24));
         stockMarket.add(new Stock(18));
         Stock test = new Stock(24);
         Stock result = stockMarket.mostValuableStock();
-        Assertions.assertEquals(result.value,test.value);
+        Assertions.assertEquals(result.value, test.value);
     }
 }
