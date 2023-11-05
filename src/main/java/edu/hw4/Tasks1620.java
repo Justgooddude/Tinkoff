@@ -2,7 +2,6 @@ package edu.hw4;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Tasks1620 {
@@ -27,7 +26,10 @@ public class Tasks1620 {
         Long spiderbites = (list.stream()
             .filter(n -> n.type() == Animal.Type.SPIDER && n.bites())
             .count());
-        return dogProb / dogbites > spider / spiderbites;
+        if(dogbites==0) return true;
+        if(spiderbites==0) return false;
+        if(spiderbites==dogbites)return false;
+        return dogProb / dogbites < spider / spiderbites;
     }
 
     public Animal heaviestFish(List<List<Animal>> lists) {
@@ -37,8 +39,9 @@ public class Tasks1620 {
             .max(Comparator.comparing(Animal::weight))
             .orElseThrow();
     }
-    public class ValidationError extends Exception{
-        public ValidationError(String message){
+
+    public class ValidationError extends Exception {
+        public ValidationError(String message) {
             super(message);
         }
     }

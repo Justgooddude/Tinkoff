@@ -8,17 +8,16 @@ import java.util.stream.Collectors;
 
 public class Tasks610 {
     public Map<Animal.Type, Animal> heavistFromType(List<Animal> list) {
-        Map<Animal.Type, Animal> result = list.stream()
+        return list.stream()
             .collect(Collectors.toMap(e -> e.type(), e -> list.stream()
                 .filter(n -> n.type() == e.type())
                 .max(Comparator.comparing(Animal::weight))
-                .orElseThrow()));
-        return result;
+                .orElseThrow(),(first,second)->second));
     }
 
     public Animal kthEldest(List<Animal> list, Integer k) {
         return list.stream()
-            .sorted(Comparator.comparing(Animal::age, Comparator.reverseOrder()))
+            .sorted(Comparator.comparing(Animal::age))
             .skip(k).findFirst().get();
     }
 
