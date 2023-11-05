@@ -8,7 +8,7 @@ class MazeTest {
     void maze() {
         Maze maze = new Maze(11, 11);
         maze.generateMaze();
-        DisplayGraphics fast = new DisplayGraphics(maze, 500);
+        maze.print();
         assertEquals(1, 1);
 
     }

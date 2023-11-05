@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Random;
+import org.apache.logging.log4j.LogManager;
+import static java.lang.System.out;
 
 public class Maze {
     Cell[][] maze = new Cell[1][1];
     int height;
     int width;
     Cell start;
+    private final static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
     public Maze(int heigh, int widt) {
         height = heigh;
@@ -44,6 +47,23 @@ public class Maze {
             } else {
                 curent = stack.pop();
             }
+        }
+
+    }
+
+    public void print() {
+
+        for (int i = 0; i < height; i++) {
+
+            for (int j = 0; j < width; j++) {
+                switch (maze[i][j].type()) {
+                    case SPACE -> out.print("   ");
+                    case WALL -> out.print(" + ");
+                    case PATH -> out.print(" > ");
+                    default -> out.print("  ");
+                }
+            }
+            out.println("");
         }
     }
 
