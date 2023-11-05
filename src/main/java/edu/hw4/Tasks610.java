@@ -12,7 +12,7 @@ public class Tasks610 {
             .collect(Collectors.toMap(e -> e.type(), e -> list.stream()
                 .filter(n -> n.type() == e.type())
                 .max(Comparator.comparing(Animal::weight))
-                .orElseThrow(),(first,second)->second));
+                .orElseThrow(), (first, second) -> second));
     }
 
     public Animal kthEldest(List<Animal> list, Integer k) {

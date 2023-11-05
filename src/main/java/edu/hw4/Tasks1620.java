@@ -26,9 +26,15 @@ public class Tasks1620 {
         Long spiderbites = (list.stream()
             .filter(n -> n.type() == Animal.Type.SPIDER && n.bites())
             .count());
-        if(dogbites==0) return true;
-        if(spiderbites==0) return false;
-        if(spiderbites==dogbites)return false;
+        if (dogbites == 0) {
+            return true;
+        }
+        if (spiderbites == 0) {
+            return false;
+        }
+        if (spiderbites == dogbites) {
+            return false;
+        }
         return dogProb / dogbites < spider / spiderbites;
     }
 
