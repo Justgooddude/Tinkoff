@@ -42,7 +42,4 @@ public class Tasks1620 {
             super(message);
         }
     }
-    public Map<String,ValidationError> validation(List<Animal>list){
-
-    }
 }
