@@ -2,12 +2,13 @@ package edu.hw5;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Task2 {
+    2
+    @SuppressWarnings("MagicNumber")
     public List<LocalDate> findAllFridays(int year) {
         List<LocalDate> result = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
@@ -18,7 +19,7 @@ public class Task2 {
         }
         return result;
     }
-
+    @SuppressWarnings("MagicNumber")
     public LocalDate findnextFtiday(LocalDate start) {
         LocalDate curent = start;
         while (true) {

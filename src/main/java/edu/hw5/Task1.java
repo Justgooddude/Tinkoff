@@ -5,14 +5,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Task1 {
+    @SuppressWarnings("MagicNumber")
     public String seansDuration(List<String> times) {
         long totalspended = 0;
         int count = 0;
         for (String time : times) {
             String time1 = time.replace(", ", ":");
-            String time2 = time.replace("-", ":");
-            time = time2.replace(" ", "");
-            String[] data = time.split(":");
+            String time2 = time1.replace("-", ":");
+            String time3 = time2.replace(" ", "");
+            String[] data = time3.split(":");
             LocalDateTime enter = LocalDateTime.of(
                 Integer.valueOf(data[0]),
                 Integer.valueOf(data[1]),

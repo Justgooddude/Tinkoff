@@ -2,12 +2,10 @@ package edu.hw5;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DateParser {
-    @SuppressWarnings("MagicNumber");
-
+   @SuppressWarnings("MagicNumber")
     Optional<LocalDate> parseDate(String string) {
         if (string.equalsIgnoreCase("today")) {
             return Optional.of(LocalDate.now());
