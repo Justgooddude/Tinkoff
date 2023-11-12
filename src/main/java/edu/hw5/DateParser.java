@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class DateParser {
-   @SuppressWarnings("MagicNumber")
+    @SuppressWarnings("MagicNumber")
     Optional<LocalDate> parseDate(String string) {
         if (string.equalsIgnoreCase("today")) {
             return Optional.of(LocalDate.now());
@@ -13,10 +13,7 @@ public class DateParser {
         if (string.equalsIgnoreCase("tommorow")) {
             return Optional.of(LocalDate.now().plusDays(1));
         }
-        if (string.equalsIgnoreCase("yesterday")) {
-            return Optional.of(LocalDate.now().minusDays(1));
-        }
-        if (string.equalsIgnoreCase("1 day ago")) {
+        if (string.equalsIgnoreCase("yesterday") || string.equalsIgnoreCase("1 day ago")) {
             return Optional.of(LocalDate.now().minusDays(1));
         }
         if (Pattern.matches("\\d+ days ago", string)) {

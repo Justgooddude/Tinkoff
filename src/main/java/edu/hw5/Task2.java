@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task2 {
-    2
     @SuppressWarnings("MagicNumber")
     public List<LocalDate> findAllFridays(int year) {
         List<LocalDate> result = new ArrayList<>();
@@ -19,6 +18,7 @@ public class Task2 {
         }
         return result;
     }
+
     @SuppressWarnings("MagicNumber")
     public LocalDate findnextFtiday(LocalDate start) {
         LocalDate curent = start;
