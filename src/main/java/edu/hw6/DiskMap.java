@@ -1,33 +1,34 @@
 package edu.hw6;
 
-import org.apache.logging.log4j.core.Logger;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DiskMap implements Map<String, String> {
-    Path path;
-    Map<String, String> map;
+    final Path path;
+    final Path filename;
+    final Map<String, String> map;
 
-    public DiskMap(Path input) {
-        path = input;
+    public DiskMap(String input, String filen) {
+        path = Path.of(input);
+        filename = Path.of(input, filen);
+        createDirectory(path);
+        createFile(filename);
         map = new HashMap<>();
+        upload();
     }
 
     public boolean equal(Map<String, String> obj) {
         return map.equals(obj);
+    }
+    public boolean equals(DiskMap disk){
+        return map.equals(disk.map);
     }
 
     public int size() {
@@ -81,32 +82,70 @@ public class DiskMap implements Map<String, String> {
     }
 
     public void upload() {
-        try {
-            File file = new File(path.toString());
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                int doubledot = line.indexOf(":");
-                String key = line.substring(0, doubledot);
-                String value = line.substring(doubledot + 1);
-                map.put(key, value);
-            }
+        try (Stream<String> lines = Files.lines(filename)) {
+            lines.forEach(line -> {
+                String[] parts = line.split(":");
+                map.put(parts[0], parts[1]);
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void save() {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(filename)) {
             map.forEach((key, value) -> {
                 try {
-                    String entry = key+":"+value+"/n";
+                    String entry = key + ":" + value + System.lineSeparator();
                     writer.write(entry);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void createFile(Path filePath) {
+        if (Files.exists(filePath)) {
+            return;
+        }
+
+        try {
+            Files.createFile(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void createDirectory(Path directoryPath) {
+        if (Files.exists(directoryPath)) {
+            return;
+        }
+
+        try {
+            Files.createDirectory(directoryPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void deleteDirectory(Path directoryPath) {
+        if (!Files.exists(directoryPath)) {
+            return;
+        }
+
+        try {
+            Files.delete(directoryPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void deleteFile(Path filePath) {
+        if (!Files.exists(filePath)) {
+            return;
+        }
+
+        try {
+            Files.delete(filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
