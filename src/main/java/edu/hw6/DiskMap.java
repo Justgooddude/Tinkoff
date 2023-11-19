@@ -2,6 +2,7 @@ package edu.hw6;
 
 import org.apache.logging.log4j.core.Logger;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -97,14 +98,17 @@ public class DiskMap implements Map<String, String> {
     }
 
     public void save() {
-        try {
-            List<String> wr = map.entrySet().stream().map(k -> k.getKey() + ":" + k.getValue() + "\n").collect(Collectors.toList());
-
-            Files.write(
-                path,wr
-            );
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            map.forEach((key, value) -> {
+                try {
+                    String entry = key+":"+value+"/n";
+                    writer.write(entry);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
