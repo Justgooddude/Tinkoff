@@ -4,7 +4,7 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.time.OffsetDateTime;
 
-public record NginxBody (
+public record NginxBody(
     InetAddress remoteaddress,
     String remoteUser,
     OffsetDateTime timeLocal,
@@ -13,5 +13,5 @@ public record NginxBody (
     long bodyBytesSent,
     URI httpReferer,
     String httpUserAgent
-    ){
+) {
 }

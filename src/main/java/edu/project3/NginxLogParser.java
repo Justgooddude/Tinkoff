@@ -14,45 +14,47 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NginxLogParser{
-  private String regPatern =
-      "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
-    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(
+@SuppressWarnings("MultipleStringLiterals")
+public class NginxLogParser {
+    private String regPatern =
+        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+    private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(
         "dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH
     );
-  private Pattern logPattern= Pattern.compile(
-      "(?<remoteAddress>" + regPatern + ")" + " - "
-          + "(?<remoteUser>.*)" + " "
-          + "\\[" + "(?<timeLocal>.*)" + "]" + " "
-          + "\\\"" + "(?<request>.*)" + "\\\"" + " "
-          + "(?<status>\\d+)" + " "
-          + "(?<bodyBytesSent>\\d+)" + " "
-          + "\\\"" + "(?<httpReferer>.*)" + "\\\"" + " "
-          + "\\\"" + "(?<httpUserAgent>.*)" + "\\\""
-  );
-  public List<NginxBody> parse(List<String>logs){
-      List<NginxBody>result= new ArrayList<>();
-      for(String log:logs){
-          Matcher matcher = logPattern.matcher(log);
-          try {
-              NginxBody formatedlog = new NginxBody(
-                  InetAddress.getByName(matcher.group("remoteAdress")),
-                  matcher.group("remoteUser"),
-                  OffsetDateTime.parse(matcher.group("timeLocal"), dateFormat),
-                  matcher.group("request"),
-                  Integer.parseInt(matcher.group("status")),
-                  Long.parseLong(matcher.group("bodyBytesSent")),
-                  URI.create(matcher.group("httpReferer")),
-                  matcher.group("httpUserAgent")
-              );
-              result.add(formatedlog);
+    private Pattern logPattern = Pattern.compile(
+        "(?<remoteAddress>" + regPatern + ")" + " - "
+            + "(?<remoteUser>.*)" + " "
+            + "\\[" + "(?<timeLocal>.*)" + "]" + " "
+            + "\\\"" + "(?<request>.*)" + "\\\"" + " "
+            + "(?<status>\\d+)" + " "
+            + "(?<bodyBytesSent>\\d+)" + " "
+            + "\\\"" + "(?<httpReferer>.*)" + "\\\"" + " "
+            + "\\\"" + "(?<httpUserAgent>.*)" + "\\\""
+    );
 
-          }catch (UnknownHostException e){
+    public List<NginxBody> parse(List<String> logs) {
+        List<NginxBody> result = new ArrayList<>();
+        for (String log : logs) {
+            Matcher matcher = logPattern.matcher(log);
+            try {
+                NginxBody formatedlog = new NginxBody(
+                    InetAddress.getByName(matcher.group("remoteAdress")),
+                    matcher.group("remoteUser"),
+                    OffsetDateTime.parse(matcher.group("timeLocal"), dateFormat),
+                    matcher.group("request"),
+                    Integer.parseInt(matcher.group("status")),
+                    Long.parseLong(matcher.group("bodyBytesSent")),
+                    URI.create(matcher.group("httpReferer")),
+                    matcher.group("httpUserAgent")
+                );
+                result.add(formatedlog);
 
-          }
-      }
-      return result;
-  }
+            } catch (UnknownHostException e) {
+
+            }
+        }
+        return result;
+    }
 
     public List<NginxBody> parseLogFiles(List<Path> paths) {
         List<String> allLogLines = readPath(paths);
@@ -71,6 +73,5 @@ public class NginxLogParser{
 
         return result;
     }
-
 
 }
