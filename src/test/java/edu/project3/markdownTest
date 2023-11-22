@@ -1,0 +1,38 @@
+|File name|
+|:-:|
+|test|
+
+
+|Metric|Value|
+|:-:|:-:|
+|From date|-|
+|To date|-|
+|Total requests|70|
+|Average server response|291,54|
+
+
+|Resource|Count|
+|:-:|:-:|
+|/downloads/product_1|45|
+|/downloads/product_2|25|
+
+
+|Status|Name|Count|
+|:-:|:-:|:-:|
+|304|Unknown|46|
+|404|Not Found|15|
+|200|OK|9|
+
+
+|Category|Count|Percent|
+|:-:|:-:|:-:|
+|Client Errors|15|21,43|
+|Redirection|46|65,71|
+|Successful|9|12,86|
+
+
+|Time of day|Count|Percent|
+|:-:|:-:|:-:|
+|Am|70|100|
+
+
