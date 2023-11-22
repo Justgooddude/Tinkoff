@@ -9,6 +9,11 @@ import java.util.stream.Collectors;
 import static edu.project3.Report.create1x3row;
 
 public class ResponseFreq {
+    private ResponseFreq() {
+    }
+
+    private static final int FIVE = 5;
+
     public static String analyze(List<NginxBody> logs) {
         Map<String, String> top5codes = logs.stream()
             .map(item -> Integer.toString(item.status()))
@@ -19,7 +24,7 @@ public class ResponseFreq {
             )
             .entrySet().stream()
             .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-            .limit(5)
+            .limit(FIVE)
             .collect(
                 Collectors.toMap(
                     Map.Entry::getKey,

@@ -8,6 +8,9 @@ import java.util.Locale;
 import static edu.project3.Report.create1x2row;
 
 public class AverageSreverReport {
+    private AverageSreverReport() {
+    }
+
     public static String analyze(List<NginxBody> nginxLogItems) {
         double averageResponse = nginxLogItems.stream()
             .mapToLong(NginxBody::bodyBytesSent)

@@ -10,6 +10,11 @@ import java.util.stream.Collectors;
 import static edu.project3.Report.create1x3row;
 
 public class HttpStatus {
+    private HttpStatus() {
+    }
+
+    private static final double STO = 100.0;
+
     public static String analyze(List<NginxBody> nginxLogItems) {
         Map<String, Long> statusCounter = nginxLogItems.stream()
             .collect(Collectors.groupingBy(
@@ -24,7 +29,7 @@ public class HttpStatus {
         for (Map.Entry<String, Long> entry : statusCounter.entrySet()) {
             String category = entry.getKey();
             long count = entry.getValue();
-            double percent = (count * 100.0) / nginxLogItems.size();
+            double percent = (count * STO) / nginxLogItems.size();
 
             builder.append(create1x3row(category, Long.toString(count), df.format(percent)));
         }

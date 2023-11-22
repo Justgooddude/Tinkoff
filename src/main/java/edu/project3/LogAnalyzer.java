@@ -6,7 +6,6 @@ import edu.project3.analizators.HttpStatus;
 import edu.project3.analizators.Request;
 import edu.project3.analizators.Resourses;
 import edu.project3.analizators.ResponseFreq;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,45 +21,46 @@ import java.nio.file.PathMatcher;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 import static edu.project3.Report.create1x1row;
 import static edu.project3.Report.create1x2row;
 import static edu.project3.Report.create1x3row;
 import static edu.project3.Report.createReport;
-import static java.util.stream.Collectors.toList;
 
+@SuppressWarnings("MultipleStringLiterals")
 public class LogAnalyzer {
     public ComandLineAn configs;
     public List<Path> allLogFiles;
     public List<NginxBody> allLogs;
 
-    public LogAnalyzer(String[] args){
+    public LogAnalyzer(String[] args) {
         configs = new ComandLineAn();
         CommandLine commandLine = new CommandLine(configs);
         commandLine.parse(args);
-        allLogFiles=new ArrayList<>();
-        List<String>rawPaths = configs.paths;
-        NginxLogParser parser= new NginxLogParser();
-        for (String rawpath:rawPaths){
-            try{
+        allLogFiles = new ArrayList<>();
+        List<String> rawPaths = configs.paths;
+        NginxLogParser parser = new NginxLogParser();
+        for (String rawpath : rawPaths) {
+            try {
                 allLogFiles.add(Path.of(new URI(rawpath).toURL().getFile()));
-                var  filesLogs=( parser.parse(
+                var filesLogs = (parser.parse(
                     readAllLinesFrom(new URI(rawpath).toURL())
                 ));
-                for (var log:filesLogs){
+                for (var log : filesLogs) {
                     allLogs.add(log);
                 }
-            } catch (URISyntaxException | IllegalArgumentException | MalformedURLException ignored){
-                String pattern="glob:**/" + rawpath;
+            } catch (URISyntaxException | IllegalArgumentException | MalformedURLException ignored) {
+                String pattern = "glob:**/" + rawpath;
                 PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher(pattern);
-                var rootFiles=findLogFilesInRootDirectory(pathMatcher);
+                var rootFiles = findLogFilesInRootDirectory(pathMatcher);
                 allLogFiles.addAll(rootFiles);
-                for (Path file:rootFiles){
-                   allLogs.addAll(parser.parseLogFiles(List.of(file)));
+                for (Path file : rootFiles) {
+                    allLogs.addAll(parser.parseLogFiles(List.of(file)));
                 }
             }
         }
         allLogs = allLogs.stream()
-            .filter(t->inDateRange(t))
+            .filter(t -> inDateRange(t))
             .toList();
     }
 
@@ -80,7 +80,6 @@ public class LogAnalyzer {
             : createReport(tables, Report.ReportFormat.markdown);
     }
 
-
     public List<String> readAllLinesFrom(URL url) {
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -99,6 +98,7 @@ public class LogAnalyzer {
             return null;
         }
     }
+
     public static List<Path> findLogFilesInRootDirectory(PathMatcher pathMatcher) {
         try (var stream = Files.walk(Path.of("src/main/java/edu/project3/"))) {
             return stream
@@ -108,10 +108,11 @@ public class LogAnalyzer {
             return List.of();
         }
     }
+
     private boolean inDateRange(NginxBody item) {
         OffsetDateTime timeLocal = item.timeLocal();
         OffsetDateTime from = configs.from;
-        OffsetDateTime to   = configs.to;
+        OffsetDateTime to = configs.to;
 
         return (from == null || timeLocal.isAfter(from)) && (to == null || timeLocal.isBefore(to));
     }
@@ -121,24 +122,24 @@ public class LogAnalyzer {
     }
 
     private String getFileNames() {
-        String builder="";
+        String builder = "";
 
         for (var path : allLogFiles) {
-            builder+=create1x1row(path.getFileName().toString());
+            builder += create1x1row(path.getFileName().toString());
         }
 
         return builder;
     }
 
     private String getMetricValue5x2Table() {
-       String info="";
+        String info = "";
 
         String from = configs.from != null ? configs.from.toString() : "-";
-        String to   = configs.to != null ? configs.to.toString() : "-";
+        String to = configs.to != null ? configs.to.toString() : "-";
 
-        info+=create1x2row("Metric", "Value")
-            +create1x2row("From date", from)
-            +create1x2row("To date", to)
+        info += create1x2row("Metric", "Value")
+            + create1x2row("From date", from)
+            + create1x2row("To date", to)
             + Request.analyze(allLogs)
             + AverageSreverReport.analyze(allLogs);
 
