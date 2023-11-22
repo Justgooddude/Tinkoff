@@ -7,14 +7,14 @@ public class Report {
         markdown, adoc
     }
 
-    public String createReport(List<String> tables, ReportFormat format) {
+    public static String createReport(List<String> tables, ReportFormat format) {
         return switch (format) {
             case adoc ->     adocReport(tables);
             case markdown -> markdownReport(tables);
         };
     }
 
-    private String markdownReport(List<String> tables) {
+    private static String markdownReport(List<String> tables) {
       String report="";
 
         for (String table : tables) {
@@ -31,7 +31,7 @@ public class Report {
         return report;
     }
 
-    private  String adocReport(List<String> tables) {
+    private static String adocReport(List<String> tables) {
         String report="";
 
         for (String table : tables) {
@@ -48,12 +48,12 @@ public class Report {
         return report;
     }
 
-    public String markdownHeader(String header){
+    public static String markdownHeader(String header){
         int colnum=header.split(">-<").length;
         return row(header) + "|" + ":-:|".repeat(colnum) + System.lineSeparator();
     }
 
-    public String adocHeader(String header){
+    public static String adocHeader(String header){
         int colnum = header.split(">-<").length;
         return "[cols=\"^" + ",^".repeat(colnum - 1) + "\"]" + System.lineSeparator()
             + "|===" + System.lineSeparator()
@@ -61,9 +61,30 @@ public class Report {
             + System.lineSeparator();
     }
 
-    public String row(String row){
+    public static String row(String row){
         String[] cols = row.split(">-<");
         return "|" + String.join("|", cols) + "|" + System.lineSeparator();
     }
+
+    public static String create1x1row(String col1) {
+        return col1 + System.lineSeparator();
+    }
+
+    public static String create1x2row(String col1, String col2) {
+        return col1
+            + ">-<"
+            + col2
+            + System.lineSeparator();
+    }
+
+    public static String create1x3row(String col1, String col2, String col3) {
+        return col1
+            + ">-<"
+            + col2
+            + ">-<"
+            + col3
+            + System.lineSeparator();
+    }
+
 
 }
