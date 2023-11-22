@@ -40,6 +40,7 @@ public class LogAnalyzer {
         allLogFiles = new ArrayList<>();
         List<String> rawPaths = configs.paths;
         NginxLogParser parser = new NginxLogParser();
+        List<NginxBody> alllogprev = new ArrayList<>();
         for (String rawpath : rawPaths) {
             try {
                 allLogFiles.add(Path.of(new URI(rawpath).toURL().getFile()));
@@ -47,7 +48,7 @@ public class LogAnalyzer {
                     readAllLinesFrom(new URI(rawpath).toURL())
                 ));
                 for (var log : filesLogs) {
-                    allLogs.add(log);
+                    alllogprev.add(log);
                 }
             } catch (URISyntaxException | IllegalArgumentException | MalformedURLException ignored) {
                 String pattern = "glob:**/" + rawpath;
@@ -55,11 +56,11 @@ public class LogAnalyzer {
                 var rootFiles = findLogFilesInRootDirectory(pathMatcher);
                 allLogFiles.addAll(rootFiles);
                 for (Path file : rootFiles) {
-                    allLogs.addAll(parser.parseLogFiles(List.of(file)));
+                    alllogprev.addAll(parser.parseLogFiles(List.of(file)));
                 }
             }
         }
-        allLogs = allLogs.stream()
+        allLogs = alllogprev.stream()
             .filter(t -> inDateRange(t))
             .toList();
     }

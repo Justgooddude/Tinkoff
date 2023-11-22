@@ -13,6 +13,7 @@ public class Resourses {
     }
 
     private static final int FIVE = 5;
+    private static final int THREE = 3;
 
     public static String analyze(List<NginxBody> nginxLogItems) {
         Map<String, String> top5resources = nginxLogItems.stream()
@@ -45,7 +46,7 @@ public class Resourses {
 
     private static String parseResource(String request) {
         String[] raws = request.split(" ");
-        return (raws.length == FIVE)
+        return (raws.length == THREE)
             ? raws[1]
             : null;
     }

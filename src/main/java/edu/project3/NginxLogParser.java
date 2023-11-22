@@ -32,25 +32,28 @@ public class NginxLogParser {
             + "\\\"" + "(?<httpUserAgent>.*)" + "\\\""
     );
 
+    @SuppressWarnings("MagicNumber")
     public List<NginxBody> parse(List<String> logs) {
         List<NginxBody> result = new ArrayList<>();
         for (String log : logs) {
             Matcher matcher = logPattern.matcher(log);
-            try {
-                NginxBody formatedlog = new NginxBody(
-                    InetAddress.getByName(matcher.group("remoteAdress")),
-                    matcher.group("remoteUser"),
-                    OffsetDateTime.parse(matcher.group("timeLocal"), dateFormat),
-                    matcher.group("request"),
-                    Integer.parseInt(matcher.group("status")),
-                    Long.parseLong(matcher.group("bodyBytesSent")),
-                    URI.create(matcher.group("httpReferer")),
-                    matcher.group("httpUserAgent")
-                );
-                result.add(formatedlog);
+            if (matcher.find()) {
+                try {
+                    NginxBody formatedlog = new NginxBody(
+                        InetAddress.getByName(matcher.group(1)),
+                        matcher.group(2),
+                        OffsetDateTime.parse(matcher.group(3), dateFormat),
+                        matcher.group(4),
+                        Integer.parseInt(matcher.group(5)),
+                        Long.parseLong(matcher.group(6)),
+                        URI.create(matcher.group(7)),
+                        matcher.group(8)
+                    );
+                    result.add(formatedlog);
 
-            } catch (UnknownHostException e) {
+                } catch (UnknownHostException e) {
 
+                }
             }
         }
         return result;
