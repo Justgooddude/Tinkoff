@@ -9,8 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DiskMap implements Map<String, String> {
+    private final static Logger LOGGER = LogManager.getLogger();
+
     final Path path;
     final Path filename;
     final Map<String, String> map;
@@ -26,9 +30,6 @@ public class DiskMap implements Map<String, String> {
 
     public boolean equal(Map<String, String> obj) {
         return map.equals(obj);
-    }
-    public boolean equals(DiskMap disk){
-        return map.equals(disk.map);
     }
 
     public int size() {
@@ -88,10 +89,11 @@ public class DiskMap implements Map<String, String> {
                 map.put(parts[0], parts[1]);
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info(e);
         }
     }
 
+    @SuppressWarnings("RegexpSinglelineJava")
     public void save() {
         try (BufferedWriter writer = Files.newBufferedWriter(filename)) {
             map.forEach((key, value) -> {
@@ -106,6 +108,7 @@ public class DiskMap implements Map<String, String> {
             throw new RuntimeException(e);
         }
     }
+
     public static void createFile(Path filePath) {
         if (Files.exists(filePath)) {
             return;
@@ -117,6 +120,7 @@ public class DiskMap implements Map<String, String> {
             throw new RuntimeException(e);
         }
     }
+
     public static void createDirectory(Path directoryPath) {
         if (Files.exists(directoryPath)) {
             return;
@@ -128,6 +132,7 @@ public class DiskMap implements Map<String, String> {
             throw new RuntimeException(e);
         }
     }
+
     public static void deleteDirectory(Path directoryPath) {
         if (!Files.exists(directoryPath)) {
             return;
@@ -139,6 +144,7 @@ public class DiskMap implements Map<String, String> {
             throw new RuntimeException(e);
         }
     }
+
     public static void deleteFile(Path filePath) {
         if (!Files.exists(filePath)) {
             return;

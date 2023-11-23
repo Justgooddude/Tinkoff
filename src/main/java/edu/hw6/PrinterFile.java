@@ -10,9 +10,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
-import java.util.zip.Checksum;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PrinterFile {
+    private final static Logger LOGGER = LogManager.getLogger();
+
     public void print(Path path) {
         try {
             OutputStream outs = Files.newOutputStream(path);
@@ -22,7 +25,7 @@ public class PrinterFile {
             PrintWriter pw = new PrintWriter(osw);
             pw.print("Programming is learned by writting programs. - Brian Kernigan");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info(e);
         }
     }
 }
