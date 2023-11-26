@@ -13,7 +13,6 @@ public class RWCacheDB implements PersonDatabase {
     private final Map<String, List<Person>> phoneNumberCache = new HashMap<>();
     private final ReadWriteLock rwLocker = new ReentrantReadWriteLock();
 
-
     @Override
     public synchronized void add(Person person) {
         rwLocker.writeLock().lock();
@@ -28,7 +27,7 @@ public class RWCacheDB implements PersonDatabase {
             input = phoneNumberCache.remove(person.phoneNumber());
             input.add(person);
             phoneNumberCache.put(person.phoneNumber(), input);
-        }finally {
+        } finally {
             rwLocker.writeLock().unlock();
         }
     }
@@ -37,20 +36,20 @@ public class RWCacheDB implements PersonDatabase {
     public synchronized void delete(int id) {
         rwLocker.writeLock().lock();
         try {
-        Person person = idCache.remove(id);
+            Person person = idCache.remove(id);
 
-        if (person != null) {
-            List<Person> res = nameCache.remove(person.name());
-            res.remove(person);
-            nameCache.put(person.name(), res);
-            res = addressCache.remove(person.address());
-            res.remove(person);
-            addressCache.put(person.address(), res);
-            res = phoneNumberCache.remove(person.phoneNumber());
-            res.remove(person);
-            phoneNumberCache.put(person.phoneNumber(), res);
-        }
-        }finally {
+            if (person != null) {
+                List<Person> res = nameCache.remove(person.name());
+                res.remove(person);
+                nameCache.put(person.name(), res);
+                res = addressCache.remove(person.address());
+                res.remove(person);
+                addressCache.put(person.address(), res);
+                res = phoneNumberCache.remove(person.phoneNumber());
+                res.remove(person);
+                phoneNumberCache.put(person.phoneNumber(), res);
+            }
+        } finally {
             rwLocker.writeLock().unlock();
         }
 
@@ -61,7 +60,7 @@ public class RWCacheDB implements PersonDatabase {
         rwLocker.readLock().lock();
         try {
             return nameCache.getOrDefault(name, List.of());
-        }finally {
+        } finally {
             rwLocker.readLock().unlock();
         }
     }
@@ -71,7 +70,7 @@ public class RWCacheDB implements PersonDatabase {
         rwLocker.readLock().lock();
         try {
             return addressCache.getOrDefault(address, List.of());
-        }finally {
+        } finally {
             rwLocker.readLock().unlock();
         }
     }
@@ -81,7 +80,7 @@ public class RWCacheDB implements PersonDatabase {
         rwLocker.readLock().lock();
         try {
             return phoneNumberCache.getOrDefault(phone, List.of());
-        }finally {
+        } finally {
             rwLocker.readLock().unlock();
         }
     }

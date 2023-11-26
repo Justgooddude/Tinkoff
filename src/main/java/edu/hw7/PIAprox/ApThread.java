@@ -2,9 +2,11 @@ package edu.hw7.PIAprox;
 
 import java.security.SecureRandom;
 
-public class ApThread extends Thread{
+public class ApThread extends Thread {
+
+    private final static double HALFSIDE = 0.5;
     private Circle circle = new Circle(
-        new Dot(0.5, 0.5),  0.5
+        new Dot(HALFSIDE, HALFSIDE), HALFSIDE
     );
 
     private long totalPoints;

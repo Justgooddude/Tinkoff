@@ -6,8 +6,10 @@ public final class Aproximation {
     private Aproximation() {
     }
 
+    private final static double HALFSIDE = 0.5;
+
     private static Circle circle = new Circle(
-        new Dot(0.5, 0.5), 0.5
+        new Dot(HALFSIDE, HALFSIDE), HALFSIDE
     );
     private final static double CONST = 4.0;
 
