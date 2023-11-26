@@ -13,31 +13,34 @@ public class CachingService implements PersonDatabase {
 
     @Override
     public synchronized void add(Person person) {
-        List<Person> input=new ArrayList<>();
+        List<Person> input = new ArrayList<>();
         idCache.put(person.id(), person);
         try {
             input.addAll(nameCache.remove(person.name()));
-        }catch (NullPointerException e){
-            input=new ArrayList<>();
+        } catch (NullPointerException e) {
+            input = new ArrayList<>();
         }
-        if(!input.contains(person)){
-            input.add(person);}
+        if (!input.contains(person)) {
+            input.add(person);
+        }
         nameCache.put(person.name(), input);
         try {
             input.addAll(addressCache.remove(person.name()));
-        }catch (NullPointerException e){
-            input=new ArrayList<>();
+        } catch (NullPointerException e) {
+            input = new ArrayList<>();
         }
-        if(!input.contains(person)){
-            input.add(person);}
+        if (!input.contains(person)) {
+            input.add(person);
+        }
         addressCache.put(person.address(), input);
         try {
             input.addAll(phoneNumberCache.remove(person.phoneNumber()));
-        }catch (NullPointerException e){
-            input=new ArrayList<>();
+        } catch (NullPointerException e) {
+            input = new ArrayList<>();
         }
-        if(!input.contains(person)){
-            input.add(person);}
+        if (!input.contains(person)) {
+            input.add(person);
+        }
         phoneNumberCache.put(person.phoneNumber(), input);
     }
 
