@@ -1,5 +1,6 @@
 package edu.hw7.cacheServ;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,15 +13,31 @@ public class CachingService implements PersonDatabase {
 
     @Override
     public synchronized void add(Person person) {
+        List<Person> input=new ArrayList<>();
         idCache.put(person.id(), person);
-        List<Person> input = nameCache.remove(person.name());
-        input.add(person);
+        try {
+            input.addAll(nameCache.remove(person.name()));
+        }catch (NullPointerException e){
+            input=new ArrayList<>();
+        }
+        if(!input.contains(person)){
+            input.add(person);}
         nameCache.put(person.name(), input);
-        input = addressCache.remove(person.address());
-        input.add(person);
+        try {
+            input.addAll(addressCache.remove(person.name()));
+        }catch (NullPointerException e){
+            input=new ArrayList<>();
+        }
+        if(!input.contains(person)){
+            input.add(person);}
         addressCache.put(person.address(), input);
-        input = phoneNumberCache.remove(person.phoneNumber());
-        input.add(person);
+        try {
+            input.addAll(phoneNumberCache.remove(person.phoneNumber()));
+        }catch (NullPointerException e){
+            input=new ArrayList<>();
+        }
+        if(!input.contains(person)){
+            input.add(person);}
         phoneNumberCache.put(person.phoneNumber(), input);
     }
 
