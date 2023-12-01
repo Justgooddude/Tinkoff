@@ -92,7 +92,7 @@ public class Game {
             if (hiddenWord.checklater(input.charAt(0))) {
                 guesedCorrectLatters.add(input.charAt(0));
                 hiddenWord.openlatter(input.charAt(0));
-            } else if(!guesedCorrectLatters.contains(input.charAt(0))){
+            } else if (!guesedCorrectLatters.contains(input.charAt(0))) {
                 guesedMistakeLatters.add(input.charAt(0));
                 currentMistake++;
                 System.out.println("Количество ошибок " + currentMistake + " Из " + MAX_MISTAKES);

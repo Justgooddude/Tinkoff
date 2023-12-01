@@ -12,8 +12,8 @@ class GameTest {
     void gamerun() {
         Game game = new Game();
         Game game1 = new Game();
-        boolean result1 = game.gamerun("test","tes".toCharArray());
-        boolean result2 = game1.gamerun("test","abcxzyr".toCharArray());
+        boolean result1 = game.gamerun("test", "tes".toCharArray());
+        boolean result2 = game1.gamerun("test", "abcxzyr".toCharArray());
 
         /*Извиняюсь не совсем пониаю как писать тесты для методом с вводом с консоли*/
         assertThat(result1).isTrue();
