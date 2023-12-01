@@ -53,7 +53,7 @@ public class Game {
             if (hiddenWord.checklater(input.toCharArray()[0])) {
                 guesedCorrectLatters.add(input.toCharArray()[0]);
                 hiddenWord.openlatter(input.toCharArray()[0]);
-            } else {
+            } else if (!guesedMistakeLatters.contains(input.charAt(0))) {
                 guesedMistakeLatters.add(input.toCharArray()[0]);
                 currentMistake++;
                 System.out.println("Количество ошибок " + currentMistake + " Из " + MAX_MISTAKES);
@@ -82,18 +82,18 @@ public class Game {
             hiddenWord.printHiddenWorld();
             System.out.println("Введите букву");
             String input = String.valueOf(letters[curLet]);
-            while (checkrepeatLater(input)) {
+            while (!checkrepeatLater(input)) {
                 if (input.equalsIgnoreCase(endWorld)) {
                     endofGame = true;
                     break;
                 }
                 input = hiddenWord.getlatter();
             }
-            if (hiddenWord.checklater(input.toCharArray()[0])) {
-                guesedCorrectLatters.add(input.toCharArray()[0]);
-                hiddenWord.openlatter(input.toCharArray()[0]);
-            } else {
-                guesedMistakeLatters.add(input.toCharArray()[0]);
+            if (hiddenWord.checklater(input.charAt(0))) {
+                guesedCorrectLatters.add(input.charAt(0));
+                hiddenWord.openlatter(input.charAt(0));
+            } else if(!guesedCorrectLatters.contains(input.charAt(0))){
+                guesedMistakeLatters.add(input.charAt(0));
                 currentMistake++;
                 System.out.println("Количество ошибок " + currentMistake + " Из " + MAX_MISTAKES);
             }

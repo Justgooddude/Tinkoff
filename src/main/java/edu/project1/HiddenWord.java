@@ -43,7 +43,7 @@ public class HiddenWord {
     }
 
     public String getlatter() {
-        return System.in.toString();
+        return scannerForLetter.next();
     }
 
     public boolean checklater(char letter) {
