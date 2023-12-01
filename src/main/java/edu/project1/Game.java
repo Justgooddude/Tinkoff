@@ -3,9 +3,12 @@ package edu.project1;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("MultipleStringLiterals")
 public class Game {
     private boolean endofGame = false;
-    private int maxMistakes = 6;
+    private final static int MAX_MISTAKES = 6;
+
+    private final static String GREETINGS = "Добро пожаловать.  Для выхода используется EXIT";
     private int currentMistake = 0;
     private static String endWorld = "EXIT";
 
@@ -16,23 +19,26 @@ public class Game {
     private boolean checkrepeatLater(String input) {
         if (input.length() > 1) {
             return true;
-        } else if (guesedMistakeLatters.indexOf(input) >= 0) {
-            return true;
-        } else if (guesedMistakeLatters.indexOf(input) >= 0) {
-            return true;
-        } else {
-            return false;
         }
+        if (guesedMistakeLatters.indexOf(input) >= 0) {
+            return true;
+        }
+        if (guesedMistakeLatters.indexOf(input) >= 0) {
+            return true;
+        }
+        return false;
     }
 
     private boolean lose() {
-        return currentMistake > maxMistakes;
+        return currentMistake > MAX_MISTAKES;
     }
 
+    //Не использую логгер тюк выводится много лошнней информации и из-за этого портится вывод
+    @SuppressWarnings("RegexpSinglelineJava")
     public boolean gamerun() {
         hiddenWord.getRandomWorld();
         hiddenWord.hideWord();
-        System.out.println("Добро пожаловать.  Для выхода используется EXIT");
+        System.out.println(GREETINGS);
         while (!endofGame) {
             hiddenWord.printHiddenWorld();
             System.out.println("Введите букву");
@@ -50,7 +56,7 @@ public class Game {
             } else {
                 guesedMistakeLatters.add(input.toCharArray()[0]);
                 currentMistake++;
-                System.out.println("Количество ошибок " + currentMistake + " Из " + maxMistakes);
+                System.out.println("Количество ошибок " + currentMistake + " Из " + MAX_MISTAKES);
             }
             if (lose()) {
                 endofGame = true;
@@ -66,4 +72,43 @@ public class Game {
         return true;
     }
 
+    @SuppressWarnings("RegexpSinglelineJava")
+    public boolean gamerun(String hidenWord, char[] letters) {
+        hiddenWord.setHidenWord(hidenWord);
+        hiddenWord.hideWord();
+        int curLet = 0;
+        System.out.println(GREETINGS);
+        while (!endofGame) {
+            hiddenWord.printHiddenWorld();
+            System.out.println("Введите букву");
+            String input = String.valueOf(letters[curLet]);
+            while (checkrepeatLater(input)) {
+                if (input.equalsIgnoreCase(endWorld)) {
+                    endofGame = true;
+                    break;
+                }
+                input = hiddenWord.getlatter();
+            }
+            if (hiddenWord.checklater(input.toCharArray()[0])) {
+                guesedCorrectLatters.add(input.toCharArray()[0]);
+                hiddenWord.openlatter(input.toCharArray()[0]);
+            } else {
+                guesedMistakeLatters.add(input.toCharArray()[0]);
+                currentMistake++;
+                System.out.println("Количество ошибок " + currentMistake + " Из " + MAX_MISTAKES);
+            }
+            if (lose()) {
+                endofGame = true;
+                System.out.println("You lose");
+                return false;
+            }
+            if (hiddenWord.victory()) {
+                endofGame = true;
+                System.out.println("Congratulations");
+                return true;
+            }
+            curLet += 1;
+        }
+        return true;
+    }
 }

@@ -19,6 +19,10 @@ public class HiddenWord {
         this.wordInStars = "";
     }
 
+    public void setHidenWord(String inp) {
+        this.hidenWord = inp;
+    }
+
     public void openlatter(char letter) {
         for (int i = 0; i < hidenWord.length(); i++) {
             if (hidenWord.toCharArray()[i] == letter) {
@@ -39,17 +43,18 @@ public class HiddenWord {
     }
 
     public String getlatter() {
-        return scannerForLetter.next();
+        return System.in.toString();
     }
 
     public boolean checklater(char letter) {
         if (hidenWord.indexOf(letter) >= 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
+    @SuppressWarnings("RegexpSinglelineJava")
     public void printHiddenWorld() {
         System.out.println(wordInStars);
     }
