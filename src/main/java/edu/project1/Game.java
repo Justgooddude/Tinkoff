@@ -82,7 +82,7 @@ public class Game {
             hiddenWord.printHiddenWorld();
             System.out.println("Введите букву");
             String input = String.valueOf(letters[curLet]);
-            while (!checkrepeatLater(input)) {
+            while (checkrepeatLater(input)) {
                 if (input.equalsIgnoreCase(endWorld)) {
                     endofGame = true;
                     break;
