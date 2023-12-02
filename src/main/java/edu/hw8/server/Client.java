@@ -1,25 +1,18 @@
 package edu.hw8.server;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Client extends Thread {
     private static final int SERVER_PORT = 1337;
-
-    private BufferedReader inputStream;
-    private BufferedWriter outputStream;
+    private static final int BUFFER_SIZE = 1024;
 
     @Override
     public void run() {
         try {
             try (Socket socket = new Socket("localhost", SERVER_PORT)) {
-                inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                outputStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                byte[] buffer = new byte[BUFFER_SIZE];
 
                 Scanner scanner = new Scanner(System.in);
                 while (true) {
@@ -30,25 +23,15 @@ public class Client extends Thread {
                             break;
                         }
 
-                        outputStream.write(message);
-                        outputStream.flush();
-                        String answer = inputStream.readLine();
+                        socket.getOutputStream().write(message.getBytes());
+                        int size = socket.getInputStream().read(buffer);
+                        String answer = new String(buffer, 0, size);
                     }
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                if (outputStream != null) {
-                    outputStream.close();
-                }
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }
+

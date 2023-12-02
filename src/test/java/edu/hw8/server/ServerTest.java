@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import static java.lang.Thread.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static edu.ForWorkWithFiles.clearFile;
 
 class ServerTest {
 
@@ -38,10 +39,10 @@ class ServerTest {
         server = new Server();
         server.start();
 
-        String client1Message = "личности" + System.lineSeparator() + "exit" + System.lineSeparator();
-        String client2Message = "интеллект" + System.lineSeparator() + "exit" + System.lineSeparator();
-        String expected1 = "ip: 127.0.0.1, request: личности, response: Не переходи на личности там, где их нет.";
-        String expected2 = "ip: 127.0.0.1, request: интеллект, response: Чем ниже интеллект, тем громче оскорбления.";
+        String client1Message = "абв" + System.lineSeparator() + "exit" + System.lineSeparator();
+        String client2Message = "личности" + System.lineSeparator() + "exit" + System.lineSeparator();
+        String expected1 = "ip: 127.0.0.1, request: абв, response: Переходи на нашу сторону, у нас есть котики";
+        String expected2 = "ip: 127.0.0.1, request: личности, response: Не переходи на личности там, где их нет.";
 
         try (var inputStream = new ByteArrayInputStream(client1Message.getBytes())) {
             System.setIn(inputStream);
@@ -49,9 +50,16 @@ class ServerTest {
             Client client = new Client();
             client.start();
 
-            sleep(1000);
+            sleep(2000);
         }
+        try (var inputStream = new ByteArrayInputStream(client2Message.getBytes())) {
+            System.setIn(inputStream);
 
+            Client client2 = new Client();
+            client2.start();
+
+            sleep(2000);
+        }
 
         assertThat(containsInFile(expected1)).isTrue();
         assertThat(containsInFile(expected2)).isTrue();
@@ -73,46 +81,13 @@ class ServerTest {
         try (BufferedReader reader = Files.newBufferedReader(LOG)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.contains(expected)) {
+                if (line.equals(expected)) {
                     return true;
                 }
             }
         }
 
         return false;
-    }
-    public static void clearFile(Path filePath) {
-        if (!fileExists(filePath)) {
-            return;
-        }
-
-        deleteFile(filePath);
-        createFile(filePath);
-    }
-    public static void deleteFile(Path filePath) {
-        if (!fileExists(filePath)) {
-            return;
-        }
-
-        try {
-            Files.delete(filePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static void createFile(Path filePath) {
-        if (fileExists(filePath)) {
-            return;
-        }
-
-        try {
-            Files.createFile(filePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static boolean fileExists(Path filePath) {
-        return Files.exists(filePath);
     }
 
 }

@@ -10,6 +10,7 @@ public class Server extends Thread{
     private static final int PORT = 1337;
     private static final int MAX_CONNECTIONS = 2;
 
+
     private final ExecutorService executorService;
 
     public Server() {
