@@ -6,10 +6,9 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Server extends Thread{
+public class Server extends Thread {
     private static final int PORT = 1337;
     private static final int MAX_CONNECTIONS = 2;
-
 
     private final ExecutorService executorService;
 
@@ -32,6 +31,7 @@ public class Server extends Thread{
             throw new RuntimeException(e);
         }
     }
+
     public void shutdown() {
         executorService.shutdown();
     }

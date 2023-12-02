@@ -6,8 +6,9 @@ import java.nio.file.Path;
 
 public final class ForWorkWithFiles {
 
-    private ForWorkWithFiles(){
+    private ForWorkWithFiles() {
     }
+
     public static void deleteFile(Path filePath) {
         if (!fileExists(filePath)) {
             return;
@@ -19,6 +20,7 @@ public final class ForWorkWithFiles {
             throw new RuntimeException(e);
         }
     }
+
     public static void createFile(Path filePath) {
         if (fileExists(filePath)) {
             return;
@@ -30,9 +32,11 @@ public final class ForWorkWithFiles {
             throw new RuntimeException(e);
         }
     }
+
     public static boolean fileExists(Path filePath) {
         return Files.exists(filePath);
     }
+
     public static void clearFile(Path filePath) {
         if (!fileExists(filePath)) {
             return;

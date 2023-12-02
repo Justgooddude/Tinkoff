@@ -16,11 +16,10 @@ import static edu.ForWorkWithFiles.clearFile;
 
 class ServerTest {
 
-
     private Server server;
     private PipedOutputStream serverOut;
     private ByteArrayOutputStream clientOut;
-  //Сделал пееменные,из-за дальнейшей замеены ввода
+    //Сделал пееменные,из-за дальнейшей замеены ввода
     private InputStream systemIn;
     private PrintStream systemOut;
 
@@ -31,7 +30,7 @@ class ServerTest {
 
         serverOut = new PipedOutputStream();
         clientOut = new ByteArrayOutputStream();
-        systemIn  = System.in;
+        systemIn = System.in;
         systemOut = System.out;
 
         System.setOut(new PrintStream(clientOut));
