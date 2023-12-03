@@ -24,6 +24,7 @@ public class PasswordBrut {
     public ConcurrentHashMap<String, String> getLoginPasswordDatabase() {
         return loginPasswordDatabase;
     }
+
     public void singleThread() {
         var generator = new SimplePasswordGenerator(
             allchars.toCharArray(),
@@ -31,7 +32,7 @@ public class PasswordBrut {
         );
 
         for (int i = 0; i < maxPasswordLength; ++i) {
-            while (generator.totalAmmountOfPasswords!=0) {
+            while (generator.totalAmmountOfPasswords != 0) {
                 String password = generator.generatePassword();
                 String hash = md5Hash(password);
 
@@ -83,7 +84,7 @@ public class PasswordBrut {
         );
 
         for (int i = 0; i < maxPasswordLength; ++i) {
-            while (generator.positionCharIndex[0]!= end+1) {
+            while (generator.positionCharIndex[0] != end + 1) {
                 String password = generator.generatePassword();
                 String hash = md5Hash(password);
 
@@ -101,6 +102,7 @@ public class PasswordBrut {
         }
     }
 
+    @SuppressWarnings("MagicNumber")
     private static String md5Hash(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -111,8 +113,7 @@ public class PasswordBrut {
                 hashtext = "0" + hashtext;
             }
             return hashtext;
-        }
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
