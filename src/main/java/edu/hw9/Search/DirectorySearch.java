@@ -19,7 +19,7 @@ public class DirectorySearch extends RecursiveTask<DirRes> {
 
     @Override
     protected DirRes compute() {
-        List<Path> filesAndDirectvfories;
+        List<Path> filesAndDirectories;
         try {
             filesAndDirectories = Files.list(root).collect(Collectors.toList());
         } catch (IOException e) {
