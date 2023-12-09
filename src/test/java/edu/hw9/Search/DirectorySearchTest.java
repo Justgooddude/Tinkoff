@@ -11,7 +11,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 import static edu.hw9.Search.ForTests.createDirectory;
 import static edu.hw9.Search.ForTests.createFile;
-import static edu.hw9.Search.ForTests.deleteDirectory;
+import static edu.hw9.Search.ForTests.recursiveDelete;
 import static edu.hw9.Search.ForTests.write;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,11 +40,7 @@ class DirectorySearchTest {
             ).directories();
         }
         assertThat(result).hasSize(2);
-      try {
-          deleteDirectory(root.resolve("test/"));
-      } catch (IOException e){
-          throw new RuntimeException(e);
-      }
+      recursiveDelete(root.resolve("test/").toFile());
 
     }
 }

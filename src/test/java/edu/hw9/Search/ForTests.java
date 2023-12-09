@@ -1,6 +1,7 @@
 package edu.hw9.Search;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,14 +48,21 @@ public final class ForTests {
         }
     }
 
-    public static void deleteDirectory(Path directoryPath) throws IOException {
-        for (Path file : Files.list(directoryPath).collect(Collectors.toList())){
-            if(Files.isDirectory(file)){
-                deleteDirectory(file);
+    public static void recursiveDelete(File file) {
+        // до конца рекурсивного цикла
+        if (!file.exists())
+            return;
+
+        //если это папка, то идем внутрь этой папки и вызываем рекурсивное удаление всего, что там есть
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                // рекурсивный вызов
+                recursiveDelete(f);
             }
-            Files.delete(file);
         }
-        Files.delete(directoryPath);
+        // вызываем метод delete() для удаления файлов и пустых(!) папок
+        file.delete();
+        System.out.println("Удаленный файл или папка: " + file.getAbsolutePath());
     }
     public static void write(Path filePath, String string) {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.APPEND)) {

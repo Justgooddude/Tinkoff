@@ -2,14 +2,15 @@ package edu.hw9.Search;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import static edu.hw9.Search.ForTests.createDirectory;
 import static edu.hw9.Search.ForTests.createFile;
-import static edu.hw9.Search.ForTests.deleteDirectory;
 import static edu.hw9.Search.ForTests.deleteFile;
+import static edu.hw9.Search.ForTests.recursiveDelete;
 import static edu.hw9.Search.ForTests.write;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,11 +32,7 @@ class FileSearchTest {
         createFile(root.resolve("test/test2/test21.txt"));
         createFile(root.resolve("test/test2/test22.txt"));
         write(root.resolve("test/test2/test22.txt"), "7 BYTES");
-        try {
-            deleteDirectory(root.resolve("test/"));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        recursiveDelete(root.resolve("test").toFile());
     }
 
 
