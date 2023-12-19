@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class IntGenerator extends Generator {
     @Override
+    @SuppressWarnings("InnerAssignment")
     public Object generate(Parameter parameter) {
         if (!(parameter.getType().equals(int.class) || parameter.getType().equals(Integer.class))) {
             return generateNext(parameter);
