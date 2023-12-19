@@ -10,6 +10,7 @@ import java.util.Comparator;
 
 public class RandomGeneratedObject {
     private final Generator generator;
+
     public RandomGeneratedObject() {
         this.generator = Generator.chain(
             new IntGenerator(),

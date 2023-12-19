@@ -4,6 +4,7 @@ import java.lang.reflect.Parameter;
 
 public abstract class Generator {
     private Generator next;
+
     public static Generator chain(Generator first, Generator... chain) {
         Generator head = first;
         for (Generator nextInChain : chain) {
@@ -12,7 +13,9 @@ public abstract class Generator {
         }
         return first;
     }
+
     public abstract Object generate(Parameter parameter);
+
     protected Object generateNext(Parameter parameter) {
         if (next == null) {
             return null;

@@ -3,7 +3,7 @@ package edu.hw10.generator;
 import java.lang.reflect.Parameter;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class IntGenerator extends Generator{
+public class IntGenerator extends Generator {
     @Override
     public Object generate(Parameter parameter) {
         if (!(parameter.getType().equals(int.class) || parameter.getType().equals(Integer.class))) {
@@ -15,7 +15,8 @@ public class IntGenerator extends Generator{
             switch (annotation) {
                 case Min minannotation -> minValue = minannotation.value();
                 case Max maxannotation -> maxValue = maxannotation.value();
-                default -> { }
+                default -> {
+                }
             }
         }
 

@@ -25,8 +25,8 @@ public class StringGenerator extends Generator {
             }
         }
 
-       boolean flag = ThreadLocalRandom.current().nextBoolean();
-        if (flag){
+        boolean flag = ThreadLocalRandom.current().nextBoolean();
+        if (flag) {
             return null;
         }
         return DICT.get(ThreadLocalRandom.current().nextInt(DICT.size()));
