@@ -20,11 +20,13 @@ import java.util.concurrent.Future;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-public class MultiThread implements Gener{
+public class MultiThread implements Gener {
     private int threadCount;
+
     public MultiThread(int threadCount) {
         this.threadCount = threadCount;
     }
+
     @Override
     public PixelMap gener(
         ImageSize imageSize,
@@ -63,16 +65,16 @@ public class MultiThread implements Gener{
     }
 
     private Map<Point, Pixel> merge(List<PixelMap> forMerge) {
-        Map<Point,Pixel>result= new HashMap<>();
-        Map<Point,Pixel>merged=forMerge.stream()
+        Map<Point, Pixel> result = new HashMap<>();
+        Map<Point, Pixel> merged = forMerge.stream()
             .flatMap(pixelMap -> pixelMap.map().entrySet().stream())
             .collect(Collectors.toMap(
                 Map.Entry::getKey,
                 Map.Entry::getValue,
                 mergePixels()
             ));
-        result= merged.entrySet().stream()
-            .collect(Collectors.toMap(Map.Entry::getKey,  pointPixelEntry -> new Pixel(
+        result = merged.entrySet().stream()
+            .collect(Collectors.toMap(Map.Entry::getKey, pointPixelEntry -> new Pixel(
                 new Color(
                     pointPixelEntry.getValue().color().r() / threadCount,
                     pointPixelEntry.getValue().color().g() / threadCount,
@@ -82,6 +84,7 @@ public class MultiThread implements Gener{
             )));
         return result;
     }
+
     private static BinaryOperator<Pixel> mergePixels() {
         return (pixel1, pixel2) -> new Pixel(
             new Color(

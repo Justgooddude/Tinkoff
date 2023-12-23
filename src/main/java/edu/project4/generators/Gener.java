@@ -13,8 +13,8 @@ public interface Gener {
         ImageSize imageSize,
         MapBorders mapBorders,
         List<PreobrPattern> preobr,
-        List<ColoredPreob>affine,
+        List<ColoredPreob> affine,
         int samples,
         int iter
-        );
+    );
 }

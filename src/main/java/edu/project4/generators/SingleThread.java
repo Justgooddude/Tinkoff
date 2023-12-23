@@ -79,6 +79,7 @@ public class SingleThread implements Gener {
             && point.x() >= borders.xMin() && point.x() <= borders.xMax()
             && point.y() >= borders.yMin() && point.y() <= borders.yMax();
     }
+
     private int resize(int size, double min, double max, double point) {
         return size - (int) Math.ceil(
             (max - point) / (max - min) * size
