@@ -31,6 +31,7 @@ public class AffinePreobr implements PreobrPattern {
         this.f = f;
     }
 
+    @SuppressWarnings("MagicNumber")
     public static AffinePreobr randomPreob() {
         Random rand = new Random();
         double a;
